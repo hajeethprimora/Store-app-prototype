@@ -38,6 +38,49 @@ class AppController {
     this.startBannerAutoplay();
     this.updateBadges();
     this.navigate("home");
+    this.registerServiceWorker();
+    this.setupInstallPrompt();
+  }
+
+  // --- PWA: Service Worker & Install Prompt ---
+  registerServiceWorker() {
+    if (!("serviceWorker" in navigator)) return;
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("sw.js").catch((err) => {
+        console.warn("Service worker registration failed:", err);
+      });
+    });
+  }
+
+  setupInstallPrompt() {
+    this.deferredInstallPrompt = null;
+    const installBtn = document.getElementById("installAppBtn");
+
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      this.deferredInstallPrompt = event;
+      if (installBtn) installBtn.style.display = "inline-flex";
+    });
+
+    window.addEventListener("appinstalled", () => {
+      this.deferredInstallPrompt = null;
+      if (installBtn) installBtn.style.display = "none";
+      this.showToast("SoftnixStore installed! 🎉");
+    });
+  }
+
+  async installApp() {
+    const promptEvent = this.deferredInstallPrompt;
+    if (!promptEvent) {
+      this.showToast("App is already installed or install isn't available here");
+      return;
+    }
+    promptEvent.prompt();
+    const { outcome } = await promptEvent.userChoice;
+    this.deferredInstallPrompt = null;
+    const installBtn = document.getElementById("installAppBtn");
+    if (installBtn) installBtn.style.display = "none";
+    if (outcome === "accepted") this.showToast("Installing SoftnixStore... ⚡");
   }
 
   // --- Theme & Device Framing ---

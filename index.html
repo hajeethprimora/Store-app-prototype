@@ -9,8 +9,14 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="SoftnixStore" />
   <meta name="description" content="SoftnixStore • NextGen E-Commerce Customer Mobile & Web App" />
   <title>SoftnixStore • NextGen E-Commerce App</title>
+
+  <!-- PWA Manifest & Icons -->
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,6 +54,11 @@
         <!-- Theme Toggle -->
         <button class="tool-btn" onclick="app.toggleTheme()">
           🌓 Theme
+        </button>
+
+        <!-- Install as PWA (shown when the browser offers an install prompt) -->
+        <button class="tool-btn" id="installAppBtn" style="display:none;" onclick="app.installApp()">
+          ⬇️ Install App
         </button>
 
         <!-- Reset State -->

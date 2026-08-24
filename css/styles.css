@@ -2953,3 +2953,46 @@ input:checked+.slider-toggle:before {
     width: calc(100% - 32px) !important;
   }
 }
+/* ==========================================================================
+   Installed PWA (standalone display-mode): drop the desktop emulator chrome
+   so the installed window shows the app itself, not the phone-mockup frame.
+   ========================================================================== */
+@media (display-mode: standalone), (display-mode: minimal-ui), (display-mode: window-controls-overlay) {
+  .emulator-wrapper {
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: 100dvh !important;
+    height: 100dvh !important;
+    background: var(--bg-app) !important;
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .emulator-toolbar {
+    display: none !important;
+  }
+
+  .device-container {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: 100dvh !important;
+    min-height: 100% !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    background: var(--bg-app) !important;
+  }
+
+  .device-notch,
+  .device-status-bar,
+  .device-home-indicator {
+    display: none !important;
+  }
+
+  .app-shell {
+    height: 100dvh !important;
+    width: 100% !important;
+    border-radius: 0 !important;
+  }
+}
